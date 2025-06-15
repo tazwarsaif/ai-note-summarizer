@@ -67,14 +67,14 @@ const Home = ({ user, notes, token }) => {
                             onClick={() =>
                                 (window.location.href = "/create-note")
                             }
-                            className="btn btn-primary hover:text-white w-full sm:w-auto rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 px-6 py-3 mb-5 md:mb-0"
+                            className="btn btn-primary hover:text-white w-full sm:w-auto rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 px-6 py-3 mb-5 md:mb-0 -mt-3"
                         >
                             Create New Note
                         </button>
                     </div>
+                    <hr className="my-4 mb-4" />
                     {notes && notes.length > 0 && (
                         <div className="mb-4">
-                            <hr className="my-4" />
                             <ul className="list-inside flex flex-wrap justify-center gap-4">
                                 {notes.map((note, index) => (
                                     <li
