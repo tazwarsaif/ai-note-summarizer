@@ -78,7 +78,7 @@ const Home = ({ user, notes, token }) => {
                             <ul className="list-inside flex flex-wrap justify-center gap-4">
                                 {notes.map((note, index) => (
                                     <li
-                                        className="text-gray-700 hover:bg-stone-500 hover:text-white hover:cursor-pointer p-3 rounded-lg text-wrap w-64 text-xl text-start border-2 h-14/13 mb-7"
+                                        className="text-gray-700 hover:bg-stone-500 hover:text-white hover:cursor-pointer p-3 rounded-lg text-wrap w-64 text-xl text-start border-2 h-14/13 mb-7 break-words"
                                         key={index}
                                     >
                                         <a
@@ -86,20 +86,26 @@ const Home = ({ user, notes, token }) => {
                                             className="mb-3 text-wrap"
                                         >
                                             <div className="hover:underline text-wrap">
-                                                <label
-                                                    htmlFor="title"
-                                                    className="font-bold"
-                                                >
-                                                    Title:
-                                                </label>{" "}
-                                                {note.title} <br />
-                                                <label
-                                                    htmlFor="content"
-                                                    className="font-bold"
-                                                >
-                                                    Content:
-                                                </label>{" "}
-                                                {note.content.slice(0, 30)}...{" "}
+                                                <p className="break-words">
+                                                    <label
+                                                        htmlFor="title"
+                                                        className="font-bold"
+                                                    >
+                                                        Title:
+                                                    </label>{" "}
+                                                    {note.title}
+                                                </p>
+
+                                                <p className="break-words">
+                                                    <label
+                                                        htmlFor="content"
+                                                        className="font-bold"
+                                                    >
+                                                        Content:
+                                                    </label>{" "}
+                                                    {note.content.slice(0, 30)}
+                                                    ...{" "}
+                                                </p>
                                             </div>
                                         </a>
 
