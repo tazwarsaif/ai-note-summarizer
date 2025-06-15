@@ -157,9 +157,10 @@ const UpdateNote = ({ user, note }) => {
         if (!summary) return;
 
         let i = 0;
+        const cleanSummary = summary.replace(/<br\s*\/?>/gi, "");
         const typing = () => {
-            if (i < summary.length) {
-                const char = summary.charAt(i);
+            if (i < cleanSummary.length) {
+                const char = cleanSummary.charAt(i);
                 setText((prev) => prev + char);
                 i++;
 
