@@ -24,7 +24,9 @@ const Login = () => {
 
             <div className="flex flex-col justify-center items-center min-h-screen w-full px-4">
                 <div className="bg-white/80 backdrop-blur-sm p-6 sm:p-10 rounded-xl shadow-lg w-full max-w-lg text-center space-y-6">
-                    <div className="text-xl sm:text-2xl h-20">{text}</div>
+                    <div className="text-xl sm:text-2xl h-20 text-black">
+                        {text}
+                    </div>
                     <button
                         onClick={() =>
                             (window.location.href = "/auth/google/redirect")
