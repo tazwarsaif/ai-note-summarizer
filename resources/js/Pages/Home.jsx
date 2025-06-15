@@ -59,22 +59,21 @@ const Home = ({ user, notes, token }) => {
                     </p>
                 </div>
                 <div className="bg-white/60 backdrop-blur-sm p-6 sm:p-10 rounded-xl shadow-lg w-full text-center space-y-6 mt-10 mb-50">
+                    <div className="flex flex-col-reverse md:flex-row justify-between items-center mb-4">
+                        <h2 className="font-semibold text-3xl mb-5">
+                            Your Notes:
+                        </h2>
+                        <button
+                            onClick={() =>
+                                (window.location.href = "/create-note")
+                            }
+                            className="btn btn-primary hover:text-white w-full sm:w-auto rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 px-6 py-3 mb-5 md:mb-0"
+                        >
+                            Create New Note
+                        </button>
+                    </div>
                     {notes && notes.length > 0 && (
                         <div className="mb-4">
-                            <div className="flex flex-col-reverse md:flex-row justify-between items-center mb-4">
-                                <h2 className="font-semibold text-3xl mb-5">
-                                    Your Notes:
-                                </h2>
-                                <button
-                                    onClick={() =>
-                                        (window.location.href = "/create-note")
-                                    }
-                                    className="btn btn-primary hover:text-white w-full sm:w-auto rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 px-6 py-3 mb-5 md:mb-0"
-                                >
-                                    Create New Note
-                                </button>
-                            </div>
-
                             <hr className="my-4" />
                             <ul className="list-inside flex flex-wrap justify-center gap-4">
                                 {notes.map((note, index) => (
