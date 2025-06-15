@@ -264,14 +264,6 @@ const UpdateNote = ({ user, note }) => {
                             value={content}
                             onChange={async (e) => {
                                 setSaved(false);
-                                if (e.target.value.length < 80) {
-                                    setFormErrors({
-                                        content:
-                                            "Content must be at least 80 characters.",
-                                    });
-                                    setContent(e.target.value);
-                                    return;
-                                }
                                 setContent(e.target.value);
                                 setFormErrors({});
                                 await fetch(`/api/update-note/${note.id}`, {

@@ -212,13 +212,6 @@ const CreateNote = () => {
                             id="content"
                             value={content}
                             onChange={(e) => {
-                                if (e.target.value.length < 80) {
-                                    setFormErrors({
-                                        content:
-                                            "Content must be at least 80 characters.",
-                                    });
-                                    return;
-                                }
                                 setContent(e.target.value);
                             }}
                             className="border border-gray-300 p-2 rounded-lg w-full"
