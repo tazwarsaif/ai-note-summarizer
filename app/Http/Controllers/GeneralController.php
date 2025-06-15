@@ -46,6 +46,8 @@ class GeneralController extends Controller
             'notes' => Auth::user()->notes()->latest()->get(),
             'token' => $token,
         ]);
+
+
     }
     public function showCreateNotePage()
     {
