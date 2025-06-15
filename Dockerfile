@@ -6,16 +6,19 @@ RUN apk add --no-cache nodejs npm
 # Copy application files
 COPY . .
 
-# Install Composer dependencies (do NOT skip)
+# Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Install Node.js dependencies and build assets (required for Inertia)
+# Install Node.js dependencies and build assets
 RUN npm install && npm run build
 
 # Fix Laravel permissions
 RUN chmod -R 777 storage bootstrap/cache
 
-# Image config (remove SKIP_COMPOSER since we run it manually)
+# Ensure PHP-FPM socket directory exists and has correct permissions
+RUN mkdir -p /var/run/php && chown www-data:www-data /var/run/php
+
+# Image config
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
@@ -29,4 +32,5 @@ ENV LOG_CHANNEL stderr
 # Allow Composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-CMD ["/start.sh"]
+# Explicitly start PHP-FPM before Nginx (if needed)
+CMD sh -c "php-fpm -D && nginx -g 'daemon off;'"
