@@ -23,7 +23,7 @@ Route::get('/edit-note/{id}', [GeneralController::class, 'showEditNotePage'])->m
 Route::get("/auth/{provider}/redirect", ProviderRedirectController::class)->name('auth.redirect');
 Route::get("/auth/{provider}/callback", ProviderCallbackController::class)->name('auth.callback');
 
-Route::get('/create-note', [GeneralController::class, 'showCreateNotePage'])->middleware(['auth'])->name('create-note');
+Route::get('/create-note', [GeneralController::class, 'showCreateNotePage'])->middleware(['auth'])->name('create-noteView');
 
 
 Route::post('/logout', function () {
