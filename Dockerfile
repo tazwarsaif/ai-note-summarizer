@@ -4,7 +4,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# Laravel / Nginx-PHP-FPM Image Config
+# Laravel config
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV LOG_CHANNEL=stderr
@@ -15,10 +15,11 @@ ENV PHP_ERRORS_STDERR=1
 ENV RUN_SCRIPTS=1
 ENV REAL_IP_HEADER=1
 
-# Install nodejs and npm (Alpine default)
+# Install nodejs & npm
 RUN apk update && apk add --no-cache nodejs npm
 
-# Build React assets with Vite
+# Build Vite assets
 RUN npm install && npm run build
 
+# Start PHP-FPM + Nginx
 CMD ["/start.sh"]
