@@ -1,25 +1,48 @@
 FROM richarvey/nginx-php-fpm:3.1.6
 
-# Install Node.js for Inertia/React
-RUN apk add --no-cache nodejs npm
+# Install Node.js and npm (Alpine Linux way)
+RUN apk add --no-cache \
+    nodejs \
+    npm \
+    python3 \
+    make \
+    g++
 
-# Copy application files
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy package files first for better caching
+COPY package*.json ./
+COPY composer.json composer.lock ./
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy the rest of the application
 COPY . .
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
-RUN npm install && npm run build
+# Build frontend assets
+RUN npm run prod
 
 # Fix Laravel permissions
 RUN chmod -R 777 storage bootstrap/cache
 
-# Find and modify the correct PHP-FPM config file
-RUN if [ -f /etc/php8/php-fpm.d/www.conf ]; then \
-        sed -i 's/listen = .*/listen = 9000/' /etc/php8/php-fpm.d/www.conf; \
-    elif [ -f /etc/php7/php-fpm.d/www.conf ]; then \
-        sed -i 's/listen = .*/listen = 9000/' /etc/php7/php-fpm.d/www.conf; \
+# Configure PHP-FPM to use TCP (more reliable in Docker)
+# First, let's find the actual PHP-FPM config file location
+RUN PHP_FPM_CONF=$(find /etc -name "www.conf" | head -n 1) && \
+    if [ -z "$PHP_FPM_CONF" ]; then \
+        echo "ERROR: Could not find PHP-FPM config file"; \
+        find /etc -name "*fpm*" -o -name "*php*" > /tmp/php_files.txt; \
+        cat /tmp/php_files.txt; \
+        exit 1; \
     else \
-        echo "Could not find PHP-FPM config file"; exit 1; \
+        echo "Found PHP-FPM config at: $PHP_FPM_CONF"; \
+        sed -i "s/listen = .*/listen = 9000/" "$PHP_FPM_CONF"; \
+        # Also ensure the listen directive isn't commented out
+        sed -i "s/^;listen = .*/listen = 9000/" "$PHP_FPM_CONF"; \
     fi
 
 # Update Nginx config to use TCP
