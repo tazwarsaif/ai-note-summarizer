@@ -10,7 +10,7 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Install Node.js dependencies and build assets (required for Inertia)
-RUN npm install && npm run prod
+RUN npm install && npm run build
 
 # Fix Laravel permissions
 RUN chmod -R 777 storage bootstrap/cache
