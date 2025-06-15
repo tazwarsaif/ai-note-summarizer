@@ -83,9 +83,9 @@ const Home = ({ user, notes, token }) => {
                                     >
                                         <a
                                             href={`/edit-note/${note.id}`}
-                                            className="mb-3"
+                                            className="mb-3 text-wrap"
                                         >
-                                            <div className="hover:underline">
+                                            <div className="hover:underline text-wrap">
                                                 <label
                                                     htmlFor="title"
                                                     className="font-bold"

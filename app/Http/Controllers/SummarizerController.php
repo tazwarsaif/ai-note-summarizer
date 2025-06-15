@@ -32,7 +32,7 @@ class SummarizerController extends Controller
                 ],
                 [
                 'role' => 'user',
-                'content' => "Title: $title\nContent: $content\nPlease summarize the content in a concise manner, don't add any title, fix the grammar, and make it more readable."
+                'content' => "Title: $title\nContent: $content\nPlease summarize the content in a concise and brief manner within 100 words or less possible, don't add any title, fix the grammar, and make it more readable."
                 ]
             ],
             'temperature' => 0.5
